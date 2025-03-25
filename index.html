@@ -3,88 +3,368 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Агентство Брендинга</title>
+    <title>Профессиональный QA Инженер | Тестирование ПО</title>
     <style>
-        /* Основной стиль */
-        body {
+        /* Глобальные стили */
+        :root {
+            --primary: #6e45e2;
+            --secondary: #88d3ce;
+            --accent: #ff7e5f;
+            --dark: #1a1a2e;
+            --light: #f8f9fa;
+        }
+        
+        * {
             margin: 0;
             padding: 0;
-            font-family: 'Arial', sans-serif;
-            background: radial-gradient(circle, #1e1e2f, #292945, #1e1e2f);
-            overflow: hidden;
-            color: white;
+            box-sizing: border-box;
         }
-
-        /* Анимация частиц */
-        .particles {
-            position: absolute;
+        
+        body {
+            font-family: 'Montserrat', Arial, sans-serif;
+            background: linear-gradient(135deg, var(--dark), #16213e);
+            color: var(--light);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+        
+        /* Анимация частиц (баги) */
+        .bug-particles {
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             pointer-events: none;
+            z-index: -1;
         }
-
-        .particle {
+        
+        .bug {
             position: absolute;
-            width: 10px;
-            height: 10px;
-            background-color: rgba(255, 255, 255, 0.8);
+            width: 12px;
+            height: 12px;
+            background-color: var(--accent);
             border-radius: 50%;
-            animation: floatParticles 5s infinite ease-in-out;
+            filter: drop-shadow(0 0 8px var(--accent));
+            opacity: 0.8;
+            animation: floatBug linear infinite;
         }
-
-        @keyframes floatParticles {
-            from {
-                transform: translateY(0) scale(1);
-                opacity: 1;
+        
+        @keyframes floatBug {
+            0% {
+                transform: translateY(0) translateX(0);
             }
-            to {
-                transform: translateY(-100vh) scale(0.5);
-                opacity: 0.2;
+            25% {
+                transform: translateY(-20px) translateX(10px);
+            }
+            50% {
+                transform: translateY(-40px) translateX(0);
+            }
+            75% {
+                transform: translateY(-20px) translateX(-10px);
+            }
+            100% {
+                transform: translateY(0) translateX(0);
             }
         }
-
-        /* Заголовок */
+        
+        /* Стили заголовка */
         header {
-            position: relative;
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
+            padding: 0 20px;
+            position: relative;
+            overflow: hidden;
         }
-
-        header h1 {
-            font-size: 4rem;
-            text-shadow: 0px 0px 20px rgba(255, 255, 255, 0.8), 0px 0px 30px rgba(255, 100, 150, 0.6);
+        
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(110, 69, 226, 0.1) 0%, rgba(0,0,0,0) 70%);
+            animation: pulse 15s infinite alternate;
+            z-index: -1;
         }
-
-        header p {
-            font-size: 1.5rem;
-            margin-top: 20px;
-            text-shadow: 0px 0px 10px rgba(255, 255, 255, 0.6);
+        
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                opacity: 0.2;
+            }
+            100% {
+                transform: scale(1.2);
+                opacity: 0.4;
+            }
         }
-
-        /* Светящиеся кнопки */
-        .cta-button {
-            margin-top: 30px;
+        
+        h1 {
+            font-size: clamp(2.5rem, 8vw, 4.5rem);
+            margin-bottom: 20px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 20px rgba(110, 69, 226, 0.3);
+        }
+        
+        .tagline {
+            font-size: clamp(1.2rem, 4vw, 1.8rem);
+            max-width: 800px;
+            margin-bottom: 40px;
+            position: relative;
+        }
+        
+        .tagline::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            margin: 20px auto;
+            border-radius: 3px;
+            box-shadow: 0 0 10px var(--primary);
+        }
+        
+        /* Интерактивные кнопки */
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .btn {
             padding: 15px 30px;
-            font-size: 1.2rem;
-            color: white;
-            background-color: transparent;
-            border-radius: 25px;
-            border: solid thin rgba(255, 255, 255, 0.7);
-            box-shadow: inset -2px -2px rgba(255,255,255,.3), inset -5px -5px rgba(255,50,50,.3);
-            cursor:pointer; 
+            border-radius: 50px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border: none;
+            z-index: 1;
         }
-
-        .cta-button:hover {
-          box-shadow:
-          inset -3px -3px rgba(200,.3), inset -5px -5px rgba(.3), inset -5px -5px rgba(.3)
-          }
+        
+        .btn-primary {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: white;
+            box-shadow: 0 4px 15px rgba(110, 69, 226, 0.4);
+        }
+        
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--light);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(5px);
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(110, 69, 226, 0.6);
+        }
+        
+        .btn:active {
+            transform: translateY(1px);
+        }
+        
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 100%;
+            background: linear-gradient(45deg, var(--secondary), var(--primary));
+            transition: all 0.3s ease;
+            z-index: -1;
+        }
+        
+        .btn:hover::before {
+            width: 100%;
+        }
+        
+        /* Анимированные навыки */
+        .skills-animation {
+            margin-top: 60px;
+            width: 100%;
+            max-width: 800px;
+            position: relative;
+        }
+        
+        .skill-bubble {
+            position: absolute;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: white;
+            filter: drop-shadow(0 0 10px currentColor);
+            animation: floatSkill linear infinite;
+            opacity: 0.9;
+        }
+        
+        @keyframes floatSkill {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-20px) rotate(5deg);
+            }
+        }
+        
+        /* Технологический стек */
+        .tech-stack {
+            margin-top: 100px;
+            padding: 50px 20px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            width: 90%;
+            max-width: 1200px;
+        }
+        
+        .tech-stack h2 {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2rem;
+            background: linear-gradient(to right, var(--secondary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 30px;
+            justify-items: center;
+        }
+        
+        .tech-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+        
+        .tech-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 10px;
+            transition: all 0.3s ease;
+            font-size: 1.8rem;
+        }
+        
+        .tech-item:hover .tech-icon {
+            transform: scale(1.1) translateY(-5px);
+            background: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .tech-name {
+            font-size: 0.9rem;
+            text-align: center;
+            opacity: 0.8;
+        }
+        
+        /* Интерактивный консольный эффект */
+        .console-effect {
+            margin-top: 60px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            max-width: 800px;
+            width: 90%;
+            font-family: 'Courier New', monospace;
+            position: relative;
+            overflow: hidden;
+            border-left: 4px solid var(--accent);
+        }
+        
+        .console-effect::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(transparent 90%, rgba(255, 126, 95, 0.1));
+            pointer-events: none;
+        }
+        
+        .console-line {
+            margin-bottom: 10px;
+            opacity: 0;
+            animation: typeIn 0.5s forwards;
+        }
+        
+        @keyframes typeIn {
+            to {
+                opacity: 1;
+            }
+        }
+        
+        .console-cursor {
+            display: inline-block;
+            width: 10px;
+            height: 20px;
+            background: var(--accent);
+            vertical-align: middle;
+            margin-left: 5px;
+            animation: blink 1s infinite;
+        }
+        
+        @keyframes blink {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0;
+            }
+        }
+        
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .tech-grid {
+                grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+                gap: 20px;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 250px;
+            }
+        }
     </style>
 </head>
 <body>
+    <!-- Анимация частиц-багов -->
+    <div class="bug-particles" id="bugParticles"></div>
+    
     <header>
+        <h1>QA Инженер</h1>
+        <p class="tagline">Превращаю баги в решения, а проблемы в возможности</p>
+        
+        <div class="cta-buttons">
+            <button class="btn btn-primary">Мои проекты
